@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taman Buku - Beranda</title>
+    <style>
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #2c3e50;
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+            --gray-color: #ddd;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-color);
+            margin: 0;
+            padding: 0;
+            color: var(--dark-color);
+        }
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        .logo span {
+            color: var(--primary-color);
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        nav a:hover {
+            color: var(--primary-color);
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .welcome-message {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        .welcome-message h1 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+        .genre-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        .genre-tab {
+            padding: 8px 20px;
+            background-color: white;
+            border: 1px solid var(--gray-color);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .genre-tab:hover, .genre-tab.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .book-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+        .book-cover {
+            height: 300px;
+            background-color: #eee;
+            position: relative;
+            overflow: hidden;
+        }
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .book-card:hover .book-cover img {
+            transform: scale(1.05);
+        }
+        .book-details {
+            padding: 15px;
+        }
+        .book-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+        .book-author {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .book-price {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .book-rating {
+            color: #f39c12;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .add-to-cart {
+            width: 100%;
+            padding: 8px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .add-to-cart:hover {
+            background-color: #c0392b;
+        }
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 0 20px;
+        }
+        .footer-column h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="halaman_utama.html" class="logo">Taman <span>Buku</span></a>
+            <nav>
+                <ul>
+                    <li><a href="halaman_utama.html" class="active">Beranda</a></li>
+                    <li><a href="#">Kategori</a></li>
+                    <li><a href="#">Buku Baru</a></li>
+                    <li><a href="#">Promo</a></li>
+                    <li><a href="#">Tentang Kami</a></li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/40" alt="Profil Pengguna">
+                <span>Hai, [Username]</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="welcome-message">
+            <h1>Selamat Datang di Taman Buku</h1>
+            <p>Temukan buku impian Anda dari koleksi kami yang lengkap. Mulai jelajahi berdasarkan genre favorit Anda.</p>
+        </div>
+
+        <div class="genre-tabs">
+            <div class="genre-tab active">Semua</div>
+            <div class="genre-tab">Fiksi</div>
+            <div class="genre-tab">Non-Fiksi</div>
+            <div class="genre-tab">Romantis</div>
+            <div class="genre-tab">Fantasi</div>
+            <div class="genre-tab">Misteri</div>
+            <div class="genre-tab">Sains</div>
+            <div class="genre-tab">Sejarah</div>
+            <div class="genre-tab">Bisnis</div>
+            <div class="genre-tab">Pengembangan Diri</div>
+        </div>
+
+        <div class="books-grid">
+            <!-- Buku 1 -->
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://via.placeholder.com/250x300" alt="Laut Bercerita">
+                </div>
+                <div class="book-details">
+                    <div class="book-title">Laut Bercerita</div>
+                    <div class="book-author">Leila S. Chudori</div>
+                    <div class="book-rating">★★★★☆ (4.5)</div>
+                    <div class="book-price">Rp 89.000</div>
+                    <button class="add-to-cart">+ Keranjang</button>
+                </div>
+            </div>
+
+            <!-- Buku 2 -->
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://via.placeholder.com/250x300" alt="Filosofi Teras">
+                </div>
+                <div class="book-details">
+                    <div class="book-title">Filosofi Teras</div>
+                    <div class="book-author">Henry Manampiring</div>
+                    <div class="book-rating">★★★★★ (4.8)</div>
+                    <div class="book-price">Rp 99.000</div>
+                    <button class="add-to-cart">+ Keranjang</button>
+                </div>
+            </div>
+
+            <!-- Buku 3 -->
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://via.placeholder.com/250x300" alt="Atomic Habits">
+                </div>
+                <div class="book-details">
+                    <div class="book-title">Atomic Habits</div>
+                    <div class="book-author">James Clear</div>
+                    <div class="book-rating">★★★★★ (4.9)</div>
+                    <div class="book-price">Rp 120.000</div>
+                    <button class="add-to-cart">+ Keranjang</button>
+                </div>
+            </div>
+
+            <!-- Buku 4 -->
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://via.placeholder.com/250x300" alt="Negeri Para Bedebah">
+                </div>
+                <div class="book-details">
+                    <div class="book-title">Negeri Para Bedebah</div>
+                    <div class="book-author">Tere Liye</div>
+                    <div class="book-rating">★★★★☆ (4.3)</div>
+                    <div class="book-price">Rp 85.000</div>
+                    <button class="add-to-cart">+ Keranjang</button>
+                </div>
+            </div>
+
+            <!-- Buku 5 -->
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://via.placeholder.com/250x300" alt="The Midnight Library">
+                </div>
+                <div class="book-details">
+                    <div class="book-title">The Midnight Library</div>
+                    <div class="book-author">Matt Haig</div>
+                    <div class="book-rating">★★★★☆ (4.2)</div>
+                    <div class="book-price">Rp 110.000</div>
+                    <button class="add-to-cart">+ Keranjang</button>
+                </div>
+            </div>
+
+            <!-- Buku 6 -->
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://via.placeholder.com/250x300" alt="Rich Dad Poor Dad">
+                </div>
+                <div class="book-details">
+                    <div class="book-title">Rich Dad Poor Dad</div>
+                    <div class="book-author">Robert T. Kiyosaki</div>
+                    <div class="book-rating">★★★★☆ (4.4)</div>
+                    <div class="book-price">Rp 95.000</div>
+                    <button class="add-to-cart">+ Keranjang</button>
+                </div>
+            </div>
+
+            <!-- Buku 7 -->
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://via.placeholder.com/250x300" alt="Bumi Manusia">
+                </div>
+                <div class="book-details">
+                    <div class="book-title">Bumi Manusia</div>
+                    <div class="book-author">Pramoedya Ananta Toer</div>
+                    <div class="book-rating">★★★★★ (4.7)</div>
+                    <div class="book-price">Rp 75.000</div>
+                    <button class="add-to-cart">+ Keranjang</button>
+                </div>
+            </div>
+
+            <!-- Buku 8 -->
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://via.placeholder.com/250x300" alt="Sapiens">
+                </div>
+                <div class="book-details">
+                    <div class="book-title">Sapiens</div>
+                    <div class="book-author">Yuval Noah Harari</div>
+                    <div class="book-rating">★★★★★ (4.8)</div>
+                    <div class="book-price">Rp 130.000</div>
+                    <button class="add-to-cart">+ Keranjang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Tentang Taman Buku</h3>
+                <ul>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Karir</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Bantuan</h3>
+                <ul>
+                    <li><a href="#">Pusat Bantuan</a></li>
+                    <li><a href="#">Cara Pembelian</a></li>
+                    <li><a href="#">Pengembalian</a></li>
+                    <li><a href="#">Hubungi Kami</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Ikuti Kami</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Taman Buku. Semua hak dilindungi.
+        </div>
+    </footer>
+</body>
+</html>
